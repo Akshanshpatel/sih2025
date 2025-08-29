@@ -5,6 +5,8 @@ import { useUser, SignedIn, SignedOut, SignInButton, useClerk } from "@clerk/nex
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
+import WeatherMap from "../components/WeatherMap";
+import EducationalModules from "../components/EducationalModules";
 
 export default function Home() {
 	const router = useRouter();
@@ -18,16 +20,44 @@ export default function Home() {
 	}, [isSignedIn, user, router]);
 
 	return (
-		<div className="relative min-h-screen flex items-center justify-center p-8 overflow-hidden">
+		<div className="relative min-h-screen p-8 overflow-hidden">
 			<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_left,rgba(99,102,241,0.35),transparent_50%),radial-gradient(ellipse_at_bottom_right,rgba(16,185,129,0.35),transparent_50%)]" />
 			<div className="absolute inset-0 -z-10 opacity-30" style={{ backgroundImage: "url('/grid.svg')" }} />
-			<div className="max-w-4xl w-full space-y-8 text-center">
-				<h1 className="text-4xl font-extrabold tracking-tight">Pick your role</h1>
-				<p className="text-gray-600 max-w-xl mx-auto">Select one to continue!</p>
-				<div className="grid sm:grid-cols-2 gap-6">
-					<RoleCard label="Individual (Student)" value="student" illustration="/student.svg" />
-					<RoleCard label="Organization (Teacher)" value="teacher" illustration="/teacher.svg" />
-				</div>
+			
+			<div className="max-w-6xl mx-auto space-y-12">
+				{/* Role Selection Section */}
+				<motion.div 
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.6 }}
+					className="flex items-center justify-center min-h-[60vh]"
+				>
+					<div className="text-center space-y-8">
+						<h1 className="text-4xl font-extrabold tracking-tight">Pick your role</h1>
+						<p className="text-gray-600 max-w-xl mx-auto">Select one to continue!</p>
+						<div className="grid sm:grid-cols-2 gap-6">
+							<RoleCard label="Individual (Student)" value="student" illustration="/student.svg" />
+							<RoleCard label="Organization (Teacher)" value="teacher" illustration="/teacher.svg" />
+						</div>
+					</div>
+				</motion.div>
+
+				{/* Map Section */}
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.6, delay: 0.3 }}
+					className="space-y-6"
+				>
+					<div className="text-center">
+						<h2 className="text-3xl font-bold text-gray-800 mb-2">Explore Map</h2>
+						<p className="text-gray-600">Interactive weather map showing real-time conditions across India</p>
+					</div>
+					<WeatherMap />
+				</motion.div>
+
+				{/* Educational Modules Section */}
+				<EducationalModules />
 			</div>
 		</div>
 	);
